@@ -53,12 +53,22 @@ screen.onkeypress(go_up, "Up")
 screen.onkeypress(go_down, "Down")
 screen.onkeypress(go_left, "Left")
 screen.onkeypress(go_right, "Right")
-
+tails = []
 running = True
 while running:
     screen.update()
     if snake_head.distance(snake_food)<20:
         change_position(snake_food)
+        new_tail = create_turtle("square", "darkgreen")
+        tails.append(new_tail)
+
+    for i in range(len(tails) - 1, 0, -1):
+        x = tails[i-1].xcor()
+        y = tails[i-1].ycor()
+        tails[i].goto(x,y)
+
+    if len(tails):
+        tails[0].goto(snake_head.xcor(), snake_head.ycor())
 
     move()
     sleep(0.2)
